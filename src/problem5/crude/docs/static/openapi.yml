@@ -9040,6 +9040,92 @@ paths:
                   additionalProperties: {}
       tags:
         - Query
+  /crude.crude.Msg/CreateResource:
+    post:
+      operationId: CrudeCrudeMsg_CreateResource
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              id:
+                type: string
+                format: uint64
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            type: object
+            properties:
+              creator:
+                type: string
+              metadata:
+                type: string
+              value:
+                type: string
+                format: uint64
+      tags:
+        - Msg
+  /crude.crude.Msg/DeleteResource:
+    post:
+      operationId: CrudeCrudeMsg_DeleteResource
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            type: object
+            properties:
+              creator:
+                type: string
+              id:
+                type: string
+                format: uint64
+      tags:
+        - Msg
   /crude.crude.Msg/UpdateParams:
     post:
       summary: |-
@@ -9088,12 +9174,54 @@ paths:
                   authority is the address that controls the module (defaults to
                   x/gov unless overwritten).
               params:
-                description: |-
-                  params defines the module parameters to update.
-
-                  NOTE: All parameters must be supplied.
+                description: 'NOTE: All parameters must be supplied.'
                 type: object
             description: MsgUpdateParams is the Msg/UpdateParams request type.
+      tags:
+        - Msg
+  /crude.crude.Msg/UpdateResource:
+    post:
+      operationId: CrudeCrudeMsg_UpdateResource
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            type: object
+            properties:
+              creator:
+                type: string
+              metadata:
+                type: string
+              value:
+                type: string
+                format: uint64
+              id:
+                type: string
+                format: uint64
       tags:
         - Msg
   /ibc.applications.fee.v1.Msg/PayPacketFee:
@@ -22678,6 +22806,32 @@ definitions:
         description: params holds all the parameters of this module.
         type: object
     description: QueryParamsResponse is response type for the Query/Params RPC method.
+  crude.crude.MsgCreateResource:
+    type: object
+    properties:
+      creator:
+        type: string
+      metadata:
+        type: string
+      value:
+        type: string
+        format: uint64
+  crude.crude.MsgCreateResourceResponse:
+    type: object
+    properties:
+      id:
+        type: string
+        format: uint64
+  crude.crude.MsgDeleteResource:
+    type: object
+    properties:
+      creator:
+        type: string
+      id:
+        type: string
+        format: uint64
+  crude.crude.MsgDeleteResourceResponse:
+    type: object
   crude.crude.MsgUpdateParams:
     type: object
     properties:
@@ -22687,10 +22841,7 @@ definitions:
           authority is the address that controls the module (defaults to x/gov
           unless overwritten).
       params:
-        description: |-
-          params defines the module parameters to update.
-
-          NOTE: All parameters must be supplied.
+        description: 'NOTE: All parameters must be supplied.'
         type: object
     description: MsgUpdateParams is the Msg/UpdateParams request type.
   crude.crude.MsgUpdateParamsResponse:
@@ -22698,6 +22849,21 @@ definitions:
     description: |-
       MsgUpdateParamsResponse defines the response structure for executing a
       MsgUpdateParams message.
+  crude.crude.MsgUpdateResource:
+    type: object
+    properties:
+      creator:
+        type: string
+      metadata:
+        type: string
+      value:
+        type: string
+        format: uint64
+      id:
+        type: string
+        format: uint64
+  crude.crude.MsgUpdateResourceResponse:
+    type: object
   ibc.applications.fee.v1.Fee:
     type: object
     properties:
