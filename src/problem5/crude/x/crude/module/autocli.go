@@ -17,6 +17,20 @@ func (am AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 					Use:       "params",
 					Short:     "Shows the parameters of the module",
 				},
+				{
+					RpcMethod:      "ShowResource",
+					Use:            "show-resource [id]",
+					Short:          "Query show-resource",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "id"}},
+				},
+
+				{
+					RpcMethod:      "ListResource",
+					Use:            "list-resource [metadata-filter] [value-low] [value-high]",
+					Short:          "Query list-resource",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "metadataFilter"}, {ProtoField: "valueLow"}, {ProtoField: "valueHigh"}},
+				},
+
 				// this line is used by ignite scaffolding # autocli/query
 			},
 		},
