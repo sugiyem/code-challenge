@@ -72,3 +72,9 @@ func GetResourceIDBytes(id uint64) []byte {
 	binary.BigEndian.PutUint64(bz, id)
 	return bz
 }
+
+func (k Keeper) RemoveResource(ctx sdk.Context, id uint64) {
+	storeAdapter := runtime.KVStoreAdapter(k.storeService.OpenKVStore(ctx))
+	store := prefix.NewStore(storeAdapter, types.KeyPrefix(types.ResourceKey))
+	store.Delete(GetResourceIDBytes(id))
+}
