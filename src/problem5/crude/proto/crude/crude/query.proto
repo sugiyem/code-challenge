@@ -58,7 +58,7 @@ message QueryListResourceRequest {
 }
 
 message QueryListResourceResponse {
-  Resource                               resource   = 1;
+  repeated Resource                      resource   = 1 [(gogoproto.nullable) = false];
   cosmos.base.query.v1beta1.PageResponse pagination = 2;
 }
 

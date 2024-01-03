@@ -9004,6 +9004,190 @@ paths:
               Since: cosmos-sdk 0.47
       tags:
         - Msg
+  /crude.crude.Msg/CreateResource:
+    post:
+      operationId: CrudeCrudeMsg_CreateResource
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              id:
+                type: string
+                format: uint64
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            type: object
+            properties:
+              creator:
+                type: string
+              metadata:
+                type: string
+              value:
+                type: string
+                format: uint64
+      tags:
+        - Msg
+  /crude.crude.Msg/DeleteResource:
+    post:
+      operationId: CrudeCrudeMsg_DeleteResource
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            type: object
+            properties:
+              creator:
+                type: string
+              id:
+                type: string
+                format: uint64
+      tags:
+        - Msg
+  /crude.crude.Msg/UpdateParams:
+    post:
+      summary: |-
+        UpdateParams defines a (governance) operation for updating the module
+        parameters. The authority defaults to the x/gov module account.
+      operationId: CrudeCrudeMsg_UpdateParams
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            description: >-
+              MsgUpdateParamsResponse defines the response structure for
+              executing a
+
+              MsgUpdateParams message.
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: body
+          description: MsgUpdateParams is the Msg/UpdateParams request type.
+          in: body
+          required: true
+          schema:
+            type: object
+            properties:
+              authority:
+                type: string
+                description: >-
+                  authority is the address that controls the module (defaults to
+                  x/gov unless overwritten).
+              params:
+                description: 'NOTE: All parameters must be supplied.'
+                type: object
+            description: MsgUpdateParams is the Msg/UpdateParams request type.
+      tags:
+        - Msg
+  /crude.crude.Msg/UpdateResource:
+    post:
+      operationId: CrudeCrudeMsg_UpdateResource
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            type: object
+            properties:
+              creator:
+                type: string
+              metadata:
+                type: string
+              value:
+                type: string
+                format: uint64
+              id:
+                type: string
+                format: uint64
+      tags:
+        - Msg
   /crude/crude/list_resource/{metadataFilter}/{valueLow}/{valueHigh}:
     get:
       summary: Queries a list of ListResource items.
@@ -9015,18 +9199,20 @@ paths:
             type: object
             properties:
               resource:
-                type: object
-                properties:
-                  metadata:
-                    type: string
-                  value:
-                    type: string
-                    format: uint64
-                  creator:
-                    type: string
-                  id:
-                    type: string
-                    format: uint64
+                type: array
+                items:
+                  type: object
+                  properties:
+                    metadata:
+                      type: string
+                    value:
+                      type: string
+                      format: uint64
+                    creator:
+                      type: string
+                    id:
+                      type: string
+                      format: uint64
               pagination:
                 type: object
                 properties:
@@ -9231,190 +9417,6 @@ paths:
           format: uint64
       tags:
         - Query
-  /crude.crude.Msg/CreateResource:
-    post:
-      operationId: CrudeCrudeMsg_CreateResource
-      responses:
-        '200':
-          description: A successful response.
-          schema:
-            type: object
-            properties:
-              id:
-                type: string
-                format: uint64
-        default:
-          description: An unexpected error response.
-          schema:
-            type: object
-            properties:
-              code:
-                type: integer
-                format: int32
-              message:
-                type: string
-              details:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    '@type':
-                      type: string
-                  additionalProperties: {}
-      parameters:
-        - name: body
-          in: body
-          required: true
-          schema:
-            type: object
-            properties:
-              creator:
-                type: string
-              metadata:
-                type: string
-              value:
-                type: string
-                format: uint64
-      tags:
-        - Msg
-  /crude.crude.Msg/DeleteResource:
-    post:
-      operationId: CrudeCrudeMsg_DeleteResource
-      responses:
-        '200':
-          description: A successful response.
-          schema:
-            type: object
-        default:
-          description: An unexpected error response.
-          schema:
-            type: object
-            properties:
-              code:
-                type: integer
-                format: int32
-              message:
-                type: string
-              details:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    '@type':
-                      type: string
-                  additionalProperties: {}
-      parameters:
-        - name: body
-          in: body
-          required: true
-          schema:
-            type: object
-            properties:
-              creator:
-                type: string
-              id:
-                type: string
-                format: uint64
-      tags:
-        - Msg
-  /crude.crude.Msg/UpdateParams:
-    post:
-      summary: |-
-        UpdateParams defines a (governance) operation for updating the module
-        parameters. The authority defaults to the x/gov module account.
-      operationId: CrudeCrudeMsg_UpdateParams
-      responses:
-        '200':
-          description: A successful response.
-          schema:
-            type: object
-            description: >-
-              MsgUpdateParamsResponse defines the response structure for
-              executing a
-
-              MsgUpdateParams message.
-        default:
-          description: An unexpected error response.
-          schema:
-            type: object
-            properties:
-              code:
-                type: integer
-                format: int32
-              message:
-                type: string
-              details:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    '@type':
-                      type: string
-                  additionalProperties: {}
-      parameters:
-        - name: body
-          description: MsgUpdateParams is the Msg/UpdateParams request type.
-          in: body
-          required: true
-          schema:
-            type: object
-            properties:
-              authority:
-                type: string
-                description: >-
-                  authority is the address that controls the module (defaults to
-                  x/gov unless overwritten).
-              params:
-                description: 'NOTE: All parameters must be supplied.'
-                type: object
-            description: MsgUpdateParams is the Msg/UpdateParams request type.
-      tags:
-        - Msg
-  /crude.crude.Msg/UpdateResource:
-    post:
-      operationId: CrudeCrudeMsg_UpdateResource
-      responses:
-        '200':
-          description: A successful response.
-          schema:
-            type: object
-        default:
-          description: An unexpected error response.
-          schema:
-            type: object
-            properties:
-              code:
-                type: integer
-                format: int32
-              message:
-                type: string
-              details:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    '@type':
-                      type: string
-                  additionalProperties: {}
-      parameters:
-        - name: body
-          in: body
-          required: true
-          schema:
-            type: object
-            properties:
-              creator:
-                type: string
-              metadata:
-                type: string
-              value:
-                type: string
-                format: uint64
-              id:
-                type: string
-                format: uint64
-      tags:
-        - Msg
   /ibc.applications.fee.v1.Msg/PayPacketFee:
     post:
       summary: >-
@@ -22987,6 +22989,67 @@ definitions:
           min_commission_rate is the chain-wide minimum commission rate that a
           validator can charge their delegators
     description: Params defines the parameters for the x/staking module.
+  crude.crude.MsgCreateResource:
+    type: object
+    properties:
+      creator:
+        type: string
+      metadata:
+        type: string
+      value:
+        type: string
+        format: uint64
+  crude.crude.MsgCreateResourceResponse:
+    type: object
+    properties:
+      id:
+        type: string
+        format: uint64
+  crude.crude.MsgDeleteResource:
+    type: object
+    properties:
+      creator:
+        type: string
+      id:
+        type: string
+        format: uint64
+  crude.crude.MsgDeleteResourceResponse:
+    type: object
+  crude.crude.MsgUpdateParams:
+    type: object
+    properties:
+      authority:
+        type: string
+        description: >-
+          authority is the address that controls the module (defaults to x/gov
+          unless overwritten).
+      params:
+        description: 'NOTE: All parameters must be supplied.'
+        type: object
+    description: MsgUpdateParams is the Msg/UpdateParams request type.
+  crude.crude.MsgUpdateParamsResponse:
+    type: object
+    description: |-
+      MsgUpdateParamsResponse defines the response structure for executing a
+      MsgUpdateParams message.
+  crude.crude.MsgUpdateResource:
+    type: object
+    properties:
+      creator:
+        type: string
+      metadata:
+        type: string
+      value:
+        type: string
+        format: uint64
+      id:
+        type: string
+        format: uint64
+  crude.crude.MsgUpdateResourceResponse:
+    type: object
+  crude.crude.Params:
+    type: object
+    description: Params defines the parameters for the module.
   cosmos.base.query.v1beta1.PageRequest:
     type: object
     properties:
@@ -23064,25 +23127,24 @@ definitions:
                repeated Bar results = 1;
                PageResponse page = 2;
        }
-  crude.crude.Params:
-    type: object
-    description: Params defines the parameters for the module.
   crude.crude.QueryListResourceResponse:
     type: object
     properties:
       resource:
-        type: object
-        properties:
-          metadata:
-            type: string
-          value:
-            type: string
-            format: uint64
-          creator:
-            type: string
-          id:
-            type: string
-            format: uint64
+        type: array
+        items:
+          type: object
+          properties:
+            metadata:
+              type: string
+            value:
+              type: string
+              format: uint64
+            creator:
+              type: string
+            id:
+              type: string
+              format: uint64
       pagination:
         type: object
         properties:
@@ -23145,64 +23207,6 @@ definitions:
       id:
         type: string
         format: uint64
-  crude.crude.MsgCreateResource:
-    type: object
-    properties:
-      creator:
-        type: string
-      metadata:
-        type: string
-      value:
-        type: string
-        format: uint64
-  crude.crude.MsgCreateResourceResponse:
-    type: object
-    properties:
-      id:
-        type: string
-        format: uint64
-  crude.crude.MsgDeleteResource:
-    type: object
-    properties:
-      creator:
-        type: string
-      id:
-        type: string
-        format: uint64
-  crude.crude.MsgDeleteResourceResponse:
-    type: object
-  crude.crude.MsgUpdateParams:
-    type: object
-    properties:
-      authority:
-        type: string
-        description: >-
-          authority is the address that controls the module (defaults to x/gov
-          unless overwritten).
-      params:
-        description: 'NOTE: All parameters must be supplied.'
-        type: object
-    description: MsgUpdateParams is the Msg/UpdateParams request type.
-  crude.crude.MsgUpdateParamsResponse:
-    type: object
-    description: |-
-      MsgUpdateParamsResponse defines the response structure for executing a
-      MsgUpdateParams message.
-  crude.crude.MsgUpdateResource:
-    type: object
-    properties:
-      creator:
-        type: string
-      metadata:
-        type: string
-      value:
-        type: string
-        format: uint64
-      id:
-        type: string
-        format: uint64
-  crude.crude.MsgUpdateResourceResponse:
-    type: object
   ibc.applications.fee.v1.Fee:
     type: object
     properties:
