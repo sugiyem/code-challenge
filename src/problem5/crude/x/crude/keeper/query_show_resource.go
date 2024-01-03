@@ -4,7 +4,9 @@ import (
 	"context"
 
 	"crude/x/crude/types"
+
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 )
@@ -16,8 +18,10 @@ func (k Keeper) ShowResource(goCtx context.Context, req *types.QueryShowResource
 
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	// TODO: Process the query
-	_ = ctx
+	resource, found := k.GetResource(ctx, req.Id)
+	if !found {
+		return nil, sdkerrors.ErrKeyNotFound
+	}
 
-	return &types.QueryShowResourceResponse{}, nil
+	return &types.QueryShowResourceResponse{Resource: &resource}, nil
 }
