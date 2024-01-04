@@ -22,12 +22,12 @@ func (k Keeper) ListResource(goCtx context.Context, req *types.QueryListResource
 	store := prefix.NewStore(storeAdapter, types.KeyPrefix(types.ResourceKey))
 
 	var resources []types.Resource
-	var count uint64 = 0
 
-	pageRes, err := query.Paginate(store, req.Pagination, func(key []byte, value []byte) error {
+	pageRes, err := query.FilteredPaginate(store, req.Pagination, func(key []byte, value []byte, accumulate bool) (bool, error) {
 		var resource types.Resource
+
 		if err := k.cdc.Unmarshal(value, &resource); err != nil {
-			return err
+			return false, err
 		}
 
 		var cond = true
@@ -38,19 +38,17 @@ func (k Keeper) ListResource(goCtx context.Context, req *types.QueryListResource
 			cond = false
 		}
 
-		if cond {
-			resources = append(resources, resource)
-			count++
+		if !cond {
+			return false, nil
 		}
 
-		return nil
+		resources = append(resources, resource)
+		return true, nil
 	})
 
 	if err != nil {
 		return nil, status.Error(codes.Internal, err.Error())
 	}
-
-	pageRes.Total = count
 
 	return &types.QueryListResourceResponse{Resource: resources, Pagination: pageRes}, nil
 }
